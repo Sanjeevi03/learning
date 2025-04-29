@@ -76,7 +76,7 @@
 //       <button onClick={()=>dispatch({type:'count', value: 1})}>Count</button>
 //       <button onClick={()=>dispatch({type:'array', value: reduState.count})}>Array</button>
 //       <button onClick={()=>dispatch({type:'obj', value: {name1:"sanjeevi"}})}>Object</button>
-//       <button onClick={()=>dispatch({type:'obj', value: {name2:"monisha"}})}>Object</button>
+//       <button onClick={()=>dispatch({type:'obj', value: {name2:"vijay"}})}>Object</button>
 
 //       <Test dispatch={dispatch}/>
 //       </UserContext.Provider>
@@ -149,7 +149,7 @@ import axios from "axios";
 const API_URL = "http://localhost:5000/news";
 
 const App = () => {
-  const [news, setNews] :any = useState([]);
+  const [news, setNews] = useState([]);
   const [page, setPage] = useState(1)
   const loaderRef = useRef(null)
   const [hasMore, setHasMore] = useState(true);

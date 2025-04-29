@@ -19,15 +19,20 @@ app.use (
 
 const data = [
   {name:"sanjeevi"},
-  {name:"moni"},
+  {name:"vijay"},
   {name:"dev"},
   {name:"vimal"},
   {name:"bh"},
-]
+];
+
+
 app.get("/get", (_,res)=> {
   res.send(data)
 })
 
+
+
+
 app.listen(process.env.PORT, () => {
   console.log("server connected.")
-})
+});

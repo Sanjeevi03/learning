@@ -30,7 +30,8 @@ export const MultiSelect = () => {
     }
   }
 
-  const debounced = useCallback(debounce(fetchName, 1000), [])
+  const debounced = useCallback(debounce(fetchName, 1000), []);
+  
   useEffect(() => {
     debounced(searchTerm)
   }, [searchTerm])

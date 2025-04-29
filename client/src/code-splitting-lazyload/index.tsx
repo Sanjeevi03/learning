@@ -8,13 +8,13 @@ const CodeSplitting = () => {
   return (
     <div>
       <BrowserRouter>
-      <Link to="/test1">Test 1</Link> {" "}
-      <Link to="/test2">Test 2</Link>
-      <h1>Code splitting and Lazy loading</h1>
-      <Routes>
-        <Route path="/test1" element={<Test1/>}/>
-        <Route path="/test2" element={<Test2/>}/>
-      </Routes>
+        <Link to="/test1">Test 1</Link> {" "}
+        <Link to="/test2">Test 2</Link>
+        <h1>Code splitting and Lazy loading</h1>
+        <Routes>
+          <Route path="/test1" element={<Test1/>}/>
+          <Route path="/test2" element={<Test2/>}/>
+        </Routes>
       </BrowserRouter>
       
     </div>

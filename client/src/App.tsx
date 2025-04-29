@@ -2,7 +2,8 @@
 // import CallBack from "./useCallback/index";
 // import Memo from "./useMemo/index";
 // import { MultiSelect } from "./multi-select"
-import { Redux } from "./redux"
+// import { Redux } from "./redux"
+
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       {/* <Memo/> */}
       {/* <CodeSplitting/> */}
       {/* <MultiSelect/> */}
-      <Redux/>
+      {/* <Redux/> */}
     </>
   )
 }

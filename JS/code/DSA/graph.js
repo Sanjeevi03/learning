@@ -61,3 +61,54 @@ gr.addEdge("B", "C")
 gr.removeVertex("A")
 gr.display()
 console.log(gr)
+
+
+
+// class Graph {
+//   constructor() {
+//     this.adjacencyList = {}
+//   }
+  
+//   addVertex(vertex) {
+//     if(!this.adjacencyList[vertex]) {
+//       this.adjacencyList[vertex] = new Set()
+//     }
+//   }
+
+//   addEdge(v1, v2) {
+//     this.adjacencyList[v1].add(v2)
+//     this.adjacencyList[v2].add(v1)
+//   }
+
+//   deleteEdge(v1, v2) {
+//     this.adjacencyList[v1].delete(v2)
+//     this.adjacencyList[v2].delete(v1)
+//   }
+
+//   deleteVertex(v) {
+//     for(let i in this.adjacencyList) {
+//       this.adjacencyList[i].delete(v)
+//     }
+//     delete this.adjacencyList[v]
+//   }
+
+// }
+
+// const g = new Graph()
+
+// g.addVertex("A")
+// g.addVertex("B")
+// g.addVertex("C")
+// g.addVertex("D")
+
+// g.addEdge("A", "B")
+// g.addEdge("B", "C")
+// g.addEdge("C", "D")
+// g.addEdge("D", "A")
+// g.addEdge("A", "C")
+
+// g.deleteEdge("A", "D")
+
+// g.deleteVertex("C")
+
+// console.log(g.adjacencyList)

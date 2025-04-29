@@ -6,11 +6,22 @@ console.log(x.sort())
 
 // ----------------------- * BUBBLE SORT * -----------------------
 
-function bubbleSort() {
+function bubbleSort(arr) {
+  let swapped
+  do {
+    swapped = false;
+    for(let i = 0; i < arr.length - 1; i++) {
+      if(arr[i] > arr[i+1]) {
+        [arr[i], arr[i+1]] = [arr[i+1], arr[i]]
+        swapped = true;
+      }
+    }
+  } while(swapped)
 
+  return arr;
 }
 
-bubbleSort([23,45,23,45,89,67,4,3])
+console.log(bubbleSort([23,45,23,45,89,67,4,3]))
 
 /*
 Time Complexity:
@@ -20,12 +31,22 @@ Time Complexity:
 
 // ----------------------- * SELECTION SORT * -----------------------
 
-function selectionSort() {
-
+function selectionSort(arr) {
+  for(let i = 0; i < arr.length; i++) {
+    let minIndex = i; 
+    for(let j = i+1; j < arr.length; j++) {
+      if(arr[minIndex] > arr[j]) {
+        minIndex = j;
+      }
+    }
+    if(minIndex !== i) {
+      [arr[minIndex], arr[i]] = [arr[i], arr[minIndex]]
+    }
+  }
+  return arr
 }
 
-selectionSort([23,45,23,45,89,67,4,3])
-
+console.log(selectionSort([45,56,15,13,89,10,4,3]))
 
 /*
 Time Complexity:
@@ -35,11 +56,22 @@ Time Complexity:
 
 // ----------------------- * INSERTION SORT * -----------------------
 
-function insertionSort() {
-
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let numberToInsert = arr[i]
+    let j = i - 1
+    while (j >= 0 && arr[j] > numberToInsert) {
+      arr[j + 1] = arr[j]
+      j = j - 1
+    }
+    arr[j + 1] = numberToInsert
+  }
 }
 
-insertionSort([23,45,23,45,89,67,4,3])
+const arr = [8, 20, -2, 30, 3]
+insertionSort(arr)
+console.log(arr)
+// O(n^2)
 
 
 /*

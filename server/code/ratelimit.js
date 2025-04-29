@@ -1,4 +1,15 @@
+
 // API rate limiting and cors
+
+
+ // express-rate-limit package
+// const rateLimiter = rateLimit({
+//   windowMs: 5000,
+//   max:3,
+//   message:"Too many requests"
+// })
+
+// app.use(rateLimiter);
 
 import express from "express";
 import dotenv from "dotenv";
@@ -19,7 +30,7 @@ app.use (
 
 const data = [
   {name:"sanjeevi"},
-  {name:"moni"},
+  {name:"vijay"},
 ]
 
 const store = new Map();

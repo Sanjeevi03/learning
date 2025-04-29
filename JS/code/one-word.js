@@ -83,3 +83,60 @@ console.log("10" - {});  // ✅ NaN
 console.log("10" + {});  // ✅ "10[object Object]"  
 // `"10"` is a string, `{}` is converted to `"[object Object]"`: "10" + "[object Object]"  
 
+var status = '1'
+setTimeout(()=> {
+  let status = '2';
+  const data = {
+    status: "dat",
+    getStatus() {
+      return this.status
+    }
+  }
+  console.log(data.getStatus())
+  console.log(data.getStatus.call(this))
+},0)
+
+
+const animal = [
+  { name:"Lion", nick: "jamba" },
+  { name:"Wolf", nick: "rag" }
+]
+
+function callAnimal(i) {
+  this.print = function() {
+    return `${i} -> ${this.name} -> ${this.nick}`
+  }
+  return this.print()
+}
+
+for(let i = 0; i < animal.length;i++) {
+  console.log(callAnimal.call(animal[i], i))
+}
+
+
+// ways of pushing array to another array
+
+const a1 = [1,2,3]
+const b1 = ['a','b']
+
+a1.push.apply(a1,b1)
+
+console.log(a1)
+
+
+const arr = [3,5,4,2,1]
+
+console.log(Math.max(...arr))
+console.log(Math.max.apply(null, arr))
+
+
+// bound function
+function f() {
+  console.log(this)
+}
+
+let user = {
+  g: f.bind(null)
+}
+
+user.g()
