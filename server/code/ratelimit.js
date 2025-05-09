@@ -2,18 +2,20 @@
 // API rate limiting and cors
 
 
- // express-rate-limit package
-// const rateLimiter = rateLimit({
-//   windowMs: 5000,
-//   max:3,
-//   message:"Too many requests"
-// })
+// express-rate-limit package
+const rateLimiterUsingPackage = rateLimit({
+  windowMs: 5000,
+  max:3,
+  message:"Too many requests"
+})
 
-// app.use(rateLimiter);
+app.use(rateLimiterUsingPackage);
 
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import fetch from "node-fetch"
+import rateLimit from "express-rate-limit";
 
 dotenv.config()
 
@@ -42,12 +44,12 @@ const rateLimiter = (req, res, next) => {
   const currentTime = Date.now();
   const windowMs = 15000;
 
-  const reqArray = store.get(ip);
+  const reqArray = store.get(ip)?.filter(i => (now - i <= windowMs))
   console.log('reqArray', reqArray);
 
-  while (reqArray.length > 0 && reqArray[0] <= currentTime - windowMs) {
-    reqArray.shift()
-  }
+  // while (reqArray.length > 0 && reqArray[0] <= currentTime - windowMs) {
+  //   reqArray.shift()
+  // }
 
   if(reqArray.length >= 3) {
     return res.status(429).send("Too many requests");

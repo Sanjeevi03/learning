@@ -1,38 +1,29 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-// import fetch from "node-fetch"
-// import rateLimit from "express-rate-limit";
+import { genSalt, hash} from "bcrypt";
+import jwt from "jsonwebtoken"
 
 dotenv.config()
 
 const app = express();
 
+app.use(express.json())
+
 app.use (
-  cors({
-    origin: "http://localhost:3001", // Change to your frontend URL
+  cors(
+    origin: "http://localhost:5173", // Change to your frontend URL
     methods: "GET,POST,PUT,DELETE",
     // credentials: true, // Allow cookies & authentication headers
     // allowedHeaders: {}
   })
 );
 
-const data = [
-  {name:"sanjeevi"},
-  {name:"vijay"},
-  {name:"dev"},
-  {name:"vimal"},
-  {name:"bh"},
-];
 
-
-app.get("/get", (_,res)=> {
-  res.send(data)
-})
-
-
-
+app.get("/", (_, res)=> {
+  res.send("Hello")
+});
 
 app.listen(process.env.PORT, () => {
   console.log("server connected.")
-});
+})

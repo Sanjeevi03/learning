@@ -70,3 +70,34 @@ function Test () {
     console.log("sanjeevi")
   }
 }
+
+
+const obj = {
+  a: 1,
+  b: 3,
+  sum() {
+    return this.a + this.b
+  }
+}
+
+console.log(obj.sum()) // what is the output
+
+
+// // lumel
+// let a = [1,2,3,null,5,6,null,7,null,8,9,10,null,34,45,null];
+// let l = []
+// let temp = []
+
+// for(let i = 0; i < a.length; i++) {
+//   if(a[i]) {
+//     temp.push(a[i])
+//   } else {
+//     l.push([...temp])
+//     temp.length = 0
+//   }
+//   if(i+1 ===  a.length && a[i]) {
+//     l.push(temp)
+//   }
+// }
+
+// console.log(l)

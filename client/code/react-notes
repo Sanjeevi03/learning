@@ -1,0 +1,84 @@
+what is cdn and crossOrigin in it?
+
+console React in browser console and see
+
+^23.5.6 - to upgrade minor version of the package.
+ex: npm will use latest version if 23.5.7 updated(basically use minor version)
+
+~23.5.6 - to upgrade major version of the package.
+ex: npm will use latest version if 24.5.7 updated(basically use major version)
+
+transintive dependencies
+
+# Parcel
+- dev build
+- local server
+- HMR - hot module reloading
+- file watching algorithm - written in c++
+- caching - faster re builds
+- image optimization
+- bundle
+- compressing
+- consistent hashing
+- code splitting
+- differential bundling - to support old browsers
+- error handling
+- HTTPS
+
+
+JSX is not html in JS
+JSX is HTML-like or XML syntax
+
+
+cross site scripting
+
+config driven api
+
+
+class component
+rendering order
+1. constructor
+2. render
+3. componentDidMount
+https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+
+custom hook
+
+chunk/dynamic bundling/lazy loading/ code splitting/on demand load/
+
+
+
+HOC
+lifiting state up
+
+
+REDUX
+- Install - redux toolkit, react-redux
+- building the store
+- connect to store
+- Slice
+- dispatch(action), takes reducer as callback function
+- Selector
+
+
+type of testing for developer
+1. Unit
+2. Integration
+
+react-testing library uses jest behind the process
+
+__tests__
+__ means dunder
+
+# setting up jest in react and for parcel
+- Install React Testing library
+- Install jest
+- Install babel dependencies
+- Configure babel
+- Configure parcel config file to disable default babel transpilation
+- Jest - npx jest --init
+- Install jsdom library
+- Install @babel/preset-react to make JSX work in test cases
+- Include @babel/preset-react inside my babel config
+- Install @testing-library/jest-dom

@@ -1,4 +1,6 @@
 
+// packages
+// @reduxjs/toolkit, react-redux
 export const Redux = () => {
   return (
     <div>

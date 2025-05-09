@@ -94,3 +94,22 @@
 let a = ['1\n','2\n','1']
 
 console.log(a)
+
+
+
+// flat polfill
+let a1 = [[1,2,3],43,54,[1,2,3,[3,45]]]
+
+function flat(a, depth = 2) {
+  let result = []
+  a.forEach(element => {
+    if (Array.isArray(element) && depth > 0) {
+      result.push(...flat(element, depth - 1))
+    } else {
+      result.push(element)
+    }
+  });
+  return result
+}
+
+console.log(flat(a1))
