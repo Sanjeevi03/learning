@@ -15,9 +15,10 @@ const debounce = (fn, delay = 1000) => {
   }
 }
 
-document.addEventListener("keypress", debounce(function(e) {
+function clickCall(e) {
   console.log("sanj", e.target.value)
-}, 1000))
+}
+document.addEventListener("keypress", debounce(clickCall, 1000))
 
 
 // //      --  THROTTLE --         //

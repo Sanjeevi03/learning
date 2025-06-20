@@ -1,102 +1,77 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import { genSalt, hash} from "bcrypt";
-import jwt from "jsonwebtoken"
+import { Router } from "express";
+import jwt from "jsonwebtoken";
 
-dotenv.config()
+const user = [{
+    "email":"sansanjeevi10@gmail.com", "password":"san"
+}]
+const router = Router()
 
-const app = express();
-
-app.use(express.json())
-
-app.use (
-  cors({
-    origin: "http://localhost:5173", // Change to your frontend URL
-    methods: "GET,POST,PUT,DELETE",
-    // credentials: true, // Allow cookies & authentication headers
-    // allowedHeaders: {}
-  })
-);
-
-
-app.get("/", (_, res)=> {
-  res.send("Hello")
+router.post('/register', (req, res) => {
+  user.push(req.body)
+  res.status(201).send({message:"User added", data: user})
 });
 
-const userList = [];
-const rftoken = [];
+router.post('/login', async (req, res) => {
 
-app.get("/users", auth, (req, res) => {
-  res.send(userList.filter(i => i.username === req.user.username))
-})
+  const { email, password } = req.body;
 
-app.post("/reg", async (req, res) => {
-  const { username, password } = req.body;
-  const salt = await genSalt(10);
-  const encryptPsw = await hash(password, salt);
-  userList.push({
-    username,
-    password: encryptPsw
-  })
-  res.status(200).send({message:"User created"})
-})
-
-
-app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
-  const exist = userList.find(user => user.username === username)
+  const exist = user.find(i => i.email === email)
   if(!exist) {
-    return res.send("User not found")
+    return res.status(400).send("User not found")
   }
-  const user = { username, password };
-  const token = await generateAccessToken(user);
-  const rtoken = await jwt.sign(user, "1234" );
-  rftoken.push(rtoken)
-  res.status(200).send({ accessToken: token, refreshToken: rtoken });
+  
+  const exist1 = user.find(i => i.password === password)
+  if(!exist1) {
+    return res.status(400).send("password invalid")
+  }
+  const token = await generateTokens(email)
+  res.send(token)
 })
 
-app.post("/token", async (req, res) => {
-  const {token} = req.body;
-  if(!token) return res.send("token not found")
-  if(!rftoken.includes(token)) return res.send("refresh token not found")
-
-  jwt.verify(token, '1234', async (err, user) => {
-    if(err) return res.send("error")
-    const accessToken = await generateAccessToken({username: user.username})
-    return res.send({ accessToken})
-  })
-})
-
-
-app.delete('/logout', (req, res) => {
-  rftoken = rftoken.filter(token => token !== req.body.token)
-  res.sendStatus(204)
-})
-
-app.listen(process.env.PORT, () => {
-  console.log("server connected.")
+router.post('/refresh-token', async (req, res) => {
+  const ref = req.body;
+  if(!ref) return res.status(403).send("refrsh token missing");
+  try {
+    const data = await jwt.verify(ref.refreshToken, '12345')
+    console.log("tokem in refrsh", data)
+    req.user = data
+  } catch(e) {
+    console.log(e.message)
+    res.status(400).send(e.message)
+  }
 })
 
 
-function auth(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+router.get('/protected', auth, (req, res) => {
+  try {
+    res.status(200).send(req.user)
+  } catch(e) {
+    res.status(401).send(e.message)
+  }
+})
 
-  if(token) {
-    jwt.verify(token, '1234', (err, user) => {
-      if(err) {
-        return res.sendStatus(400)
-      }
-      req.user = user;
-      next()
-    })
-  } else {
-    return res.status(404).send("unauthorized")
+export default router;
+
+
+async function auth(req, res, next) {
+  try {
+    const token = req.headers?.authorization?.split(" ")[1];
+    console.log('tok', token)
+    if(!token) {
+      throw new Error('token not found')
+    }
+    const data = await jwt.verify(token, '12345')
+    console.log("tokem in auth", data)
+    req.user = data
+    next()
+  } catch(e) {
+    console.log(e.message)
+    res.status(400).send(e.message)
   }
 }
 
-async function generateAccessToken(user) {
-  const token = await jwt.sign(user, "1234", { expiresIn : '10s'});
-  return token
+const generateTokens = async (email) => {
+  const accessToken = await jwt.sign({email}, "12345", { expiresIn: "15s" });
+  const refreshToken = await jwt.sign({email}, "12345", { expiresIn: "1d" });
+  return { accessToken, refreshToken}
 }

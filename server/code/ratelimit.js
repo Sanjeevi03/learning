@@ -37,6 +37,9 @@ const data = [
 
 const store = new Map();
 const rateLimiter = (req, res, next) => {
+  if(req.url == '/.well-known/appspecific/com.chrome.devtools.json') {
+      return;
+    };
   const ip = req.ip;
   if (!store.has(ip)) {
     store.set(ip, [])
@@ -44,12 +47,8 @@ const rateLimiter = (req, res, next) => {
   const currentTime = Date.now();
   const windowMs = 15000;
 
-  const reqArray = store.get(ip)?.filter(i => (now - i <= windowMs))
+  const reqArray = store.get(ip)?.filter(i => (currentTime - i <= windowMs))
   console.log('reqArray', reqArray);
-
-  // while (reqArray.length > 0 && reqArray[0] <= currentTime - windowMs) {
-  //   reqArray.shift()
-  // }
 
   if(reqArray.length >= 3) {
     return res.status(429).send("Too many requests");
@@ -99,3 +98,4 @@ app.get("/get", callLimit, (req, res) => {
 app.get("/get1", callLimit, (req, res) => {
   res.send({message: "Hello world1"})
 })
+

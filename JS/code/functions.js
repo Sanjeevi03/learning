@@ -473,3 +473,52 @@ dog.speak();  // Buddy makes a sound.
 */
 
 // Bind, Call, Apply (Manual control over this)
+
+
+
+
+// LRU
+function cache(size) {
+    let store = new Map()
+
+    function get(key) {
+        if(!store.has(key)) {
+            console.log('key doesnt exist')
+            return
+        }
+
+        let v = store.get(key)
+
+        store.delete(key)
+        store.set(key, v)
+        console.log(v)
+    }
+
+    function put(key, val) {
+        if(store.has(key)) {
+            store.delete(key)
+        } else if(store.size >= size) {
+            let old = store.keys().next().value
+            store.delete(old)
+        }
+        store.set(key, val)
+    }
+
+    function display() {
+        console.log(store)
+    }
+    return {get, display, put}
+}
+
+let n = cache(3)
+
+n.put('a', "sanjeevi1")
+n.put('b', "sanjeevi2")
+n.put('c', "sanjeevi3")
+
+n.get('a')
+n.get('c')
+
+n.put('v', 'tes')
+
+n.display()

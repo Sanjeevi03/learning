@@ -6,7 +6,7 @@ let b = a++
 console.log(a,b)
 
 
-console.log(5 + 5 + "5")
+console.log(5 + 5 + "5") // 105
 
 console.log("10" - "5");  // ✅ 5  
 // Both are strings but `-` forces numeric conversion: 10 - 5 = 5  
@@ -27,7 +27,7 @@ console.log("10" - "2" + 5);  // ✅ 13
 // "10" - "2" → 10 - 2 = 8  
 // 8 + 5 = 13  
 
-console.log("10" + "2" - 5);  // ❌ 97 (not 7)  
+console.log("10" + "2" - 5);  // ✅ 97 (not 7)  
 // "10" + "2" → "102" (string concatenation)  
 // "102" - 5 → 102 - 5 = 97  
 

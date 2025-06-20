@@ -45,7 +45,7 @@ export const MultiSelect = () => {
   const removeUser = (user:any) => {
     const upd = [...selectedUsers].filter( (i:any) => i.firstName !== user.firstName);
     setSelectedUsers(new Set([...upd]));
-    setUsers([...users, user])
+    // setUsers([...users, user])
   }
 
   const handleBlackSpace = (e:any) => {

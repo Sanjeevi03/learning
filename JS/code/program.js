@@ -19,6 +19,7 @@ function call(op) {
 console.log(call("add")(3)(4)(3)())
 console.log(call("sub")(3)(4)())
 console.log(call("mul")(3)(4)(4)())
+
 function add(n) {
   return function(i) {
     if(i) return add(n+i)
@@ -101,3 +102,169 @@ console.log(obj.sum()) // what is the output
 // }
 
 // console.log(l)
+
+
+
+function cal(a) {
+  if(a < 1000) {
+    console.log(a)
+  } 
+  else if(a < 1000000) {
+    console.log((a/1000).toFixed(2),"K")
+  }
+  else if(a < 1000000000) {
+    console.log(a/1000000,"M")
+  }
+  else {
+    console.log(a/1000000000,"B")
+  }
+}
+
+cal(988)
+cal(1088)
+cal(10088)
+cal(100488)
+cal(1000000)
+cal(1000000000)
+
+let s = "Success"
+
+s = s.toLowerCase()
+
+let co = {};
+
+for(let i of s.split("")) {
+  if(co[i]) {
+    co[i] = co[i] + 1
+  } else {
+    co[i] = 1
+  }
+}
+
+
+let k =""
+
+for(let i of s.split("")) {
+  if(co[i] === 1) {
+    k = k+ "("
+  } else {
+    k = k+ ")"
+  }
+}
+
+console.log(k)
+
+function isValidSudoku(board) {
+  let row = new Set()
+  let col = new Set()
+  let box = new Set()
+
+  for(let i = 0;i < 9; i++) {
+    for(let j = 0;j < 9; j++) {
+      let val = board[i][j];
+      if( val ==="."  || val === 0) continue
+      let x = `r${i}-${val}`
+      let y = `r${j}-${val}`
+      let z = `b${Math.floor(i/3)}${Math.floor(j/3)}-${val}}`
+
+      if(row.has(x) || col.has(y) || box.has(z)) {
+        return false
+      }
+      row.add(x)
+      col.add(y)
+      box.add(z)
+
+    }
+  }
+  return true
+}
+
+// function isValidSudoku(board) {
+//   const rows = new Set();
+//   const cols = new Set();
+//   const boxes = new Set();
+
+//   for (let r = 0; r < 9; r++) {
+//     for (let c = 0; c < 9; c++) {
+//       const val = board[r][c];
+//       if (val === '.' || val === 0) continue;
+
+//       const rowKey = `row${r}-${val}`;
+//       const colKey = `col${c}-${val}`;
+//       const boxKey = `box${Math.floor(r / 3)}${Math.floor(c / 3)}-${val}`;
+
+//       if (rows.has(rowKey) || cols.has(colKey) || boxes.has(boxKey)) {
+//         return false;
+//       }
+
+//       rows.add(rowKey);
+//       cols.add(colKey);
+//       boxes.add(boxKey);
+//     }
+//   }
+
+//   return true;
+// }
+
+const board = [
+  [5, 3, '.', '.', 7, '.', '1', '.', '.'],
+  [6, '.', '.', 1, 9, 5, '.', '.', '.'],
+  ['.', 9, 8, '.', '.', '.', '.', 6, '.'],
+  [8, '.', '.', '.', 6, '.', '.', '.', 3],
+  [4, '.', '.', 8, '.', 3, '.', '.', 1],
+  [7, '.', '.', '.', 2, '.', '.', '.', 6],
+  ['.', 6, '.', '.', '.', '.', 2, 8, '.'],
+  ['.', '.', '.', 4, 1, 9, '.', '.', 5],
+  [5, '.', '.', '.', 8, '.', '.', 7, 9]
+];
+
+console.log(isValidSudoku(board)); // true
+
+
+
+// removing duplicates from array of objects
+let res = n.filter((ele, index, arr) => {
+  let dup = arr.findIndex(item => item.label == ele.label && item.name == ele.name)
+  console.log(index, dup)
+  return index === dup
+})
+console.log(res)
+
+
+
+// prime number and range
+
+function main(s,e) {
+
+  let l = [];
+
+  for(let i = s; i <= e;i++) {
+    if(checkPrime(i)) {
+      l.push(i)
+    }
+  }
+
+
+  return l;
+
+}
+
+
+console.log(main(2,100))
+
+
+function checkPrime(n) {
+  if(n < 2) return false;
+
+
+  for(let i = 2; i <= Math.sqrt(n);i++) {
+    if(n%i === 0) {
+      return false
+    }
+  }
+
+  return true;
+
+}
+
+console.log(checkPrime(73))

@@ -1,21 +1,36 @@
-import React, { ChangeEvent, ChangeEventHandler, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import myAxios from './axios';
 
 const Login = () => {
 
   const [formData, setFormData] = useState({
     email:"", password: ""
   });
+  const navigate = useNavigate();
   
   const handleChange = (e:any) => {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value})
   }
   
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    try {
+      const res = await myAxios.post('http://localhost:5000/login', formData)
+      console.log('res', res.data)
+      
+      if(res.status === 200) {
+        localStorage.setItem('accessToken', res.data.accessToken)
+        localStorage.setItem('refreshToken', res.data.refreshToken)
+        setTimeout(() => {
+          navigate('/')
+        }, 1000);
+      }
 
+    } catch(e:any) {
+      console.log(e.message)
+    }
   }
-
   return (
     <div>
       <h1>Login</h1>
